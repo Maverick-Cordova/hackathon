@@ -1,0 +1,47 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno
+.env
+.env.local
+
+# Builds
+dist/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Archivos temporales
+tmp/
+temp/
+
+# SQLite
+*.sqlite
+*.db
+
+# Python
+__pycache__/
+*.pyc
+
+# Docker
+.docker/
+
+# Archivos de IA / workflows
+*.cache
+workflow-backup.json
+
+# Carpeta de estructura o documentación interna
+estructura/
+arquitectura/
+diagramas/
