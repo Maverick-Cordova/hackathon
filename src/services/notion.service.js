@@ -1,37 +1,3 @@
-// import { Client } from "@notionhq/client";
-// import dotenv from "dotenv";
-
-// dotenv.config();
-
-// const notion = new Client({
-//   auth: process.env.NOTION_TOKEN,
-// });
-
-// export async function obtenerPaciente(cedula) {
-
-//   const response = await notion.databases.query({
-//     database_id: process.env.NOTION_PATIENTS_DB,
-//     filter: {
-//       property: "Cedula",
-//       rich_text: {
-//         equals: cedula,
-//       },
-//     },
-//   });
-
-//   if (response.results.length === 0) {
-//     return null;
-//   }
-
-//   const paciente = response.results[0].properties;
-// console.log(paciente);
-//   return {
-//     nombre: paciente.Nombre.title[0]?.plain_text,
-//     plan: paciente.Plan.select.name,
-//     diasAfiliado: paciente.DiasAfiliado.number,
-//   };
-// }
-
 
 import { Client } from "@notionhq/client";
 import dotenv from "dotenv";

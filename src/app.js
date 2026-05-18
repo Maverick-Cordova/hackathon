@@ -48,7 +48,6 @@ app.post(
         });
       }
 
-      // 1. Extraer texto del PDF primero
       const textoPDF = await new Promise(
         (resolve, reject) => {
 
@@ -84,13 +83,8 @@ app.post(
         }
       );
 
-      console.log("Texto del PDF extraído con éxito.");
-
-      // 2. Si no se especificó la cédula, usar la IA para buscarla en el reporte
       if (!cedula || cedula.trim() === "") {
-        console.log("Cédula no proporcionada. Usando Gemini IA para extraerla...");
         const cedulaExtraida = await extraerCedulaIA(textoPDF);
-        console.log("Cédula detectada por IA:", cedulaExtraida);
 
         if (!cedulaExtraida || cedulaExtraida === "NO_ENCONTRADA") {
           return res.status(400).json({
@@ -102,25 +96,19 @@ app.post(
         cedulaDetectada = cedulaExtraida;
       }
 
-      // 3. Buscar al paciente en Notion
       const paciente = await obtenerPaciente(cedula);
 
       if (!paciente) {
         return res.status(404).json({
           error: "Paciente no encontrado",
-          cedula: cedulaDetectada, // Retornamos la cédula auto-detectada para autocompletar en el frontend
+          cedula: cedulaDetectada,
         });
       }
 
-      // Aseguramos que el objeto paciente tenga la cédula
       paciente.cedula = cedula;
 
-      // 4. Detectar la especialidad clínica con Gemini
       const especialidad = await detectarEspecialidadIA(textoPDF);
 
-      console.log("ESPECIALIDAD DETECTADA:", especialidad);
-
-      // 5. Validar reglas de seguro clínico en Notion
       const regla = await obtenerRegla(paciente.plan, especialidad);
 
       if (!regla) {
@@ -158,9 +146,6 @@ app.post(
       });
 
     } catch (error) {
-
-      console.log("ERROR EN /preautorizacion:", error);
-
       return res.status(500).json({
         error: error.message,
       });
