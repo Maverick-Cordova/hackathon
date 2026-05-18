@@ -64,6 +64,7 @@ export async function obtenerPaciente(cedula) {
     nombre: paciente.Nombre.title[0]?.plain_text,
     plan: paciente["Plan"].select.name,
     diasAfiliado: paciente.DiasAfiliado.number,
+    cedula: paciente.Cedula?.rich_text?.[0]?.plain_text || cedula,
   };
 }
 
